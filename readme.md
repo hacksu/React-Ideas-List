@@ -23,7 +23,8 @@ talk instead.
 Download the starter project from https://github.com/hacksu/React-Ideas-List.
 If you have git installed you can clone the repository, if not just download and
 extract the zip file. If you don't have a computer that's capable of editing an
-HTML file for whatever reason you can also follow along at https://jsfiddle.net/fysh9bhn/3/
+HTML file for whatever reason you can also follow along at
+https://jsfiddle.net/fysh9bhn/3/
 
 For most people you should just be able to double click `index.html` to load it
 into your browser of choice. If that doesn't work for some reason I'll try to
