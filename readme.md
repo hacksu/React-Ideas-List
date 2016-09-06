@@ -32,4 +32,5 @@ give you a hand. If you want to put scripts in a separate file you may need to
 host the files via an HTTP server. Some browser won't load the files from disk.
 For that if you have NodeJS installed you can just run
 `npm install http-server -g` and then after navigating to the folder you
-downloaded the starter project into run `http-server`. Just navigate to  `http://127.0.0.1:8080/` in your browser of choice.
+downloaded the starter project into run `http-server`. Just navigate to  
+`http://127.0.0.1:8080/` in your browser of choice.

@@ -13,7 +13,10 @@
 
         var IdeasList = React.createClass({
             render: function () {
-                var items = this.props.data.map(function(item) {
+                var self = this;
+                var items = this.props.data.filter(function (item){
+                    return item.title.includes(self.props.filter)
+                }).map(function(item) {
                     return <li><div><h3>{item.title}</h3><div>{item.type}</div></div></li>
                 });
                 return <ul>
@@ -56,15 +59,17 @@
 
         var Ideas = React.createClass({
             getInitialState: function () {
-                return {ideas: []};
+                return {ideas: [], filter: ""};
             },
             addIdea(idea) {
                 this.state.ideas.push(idea);
                 this.setState({ideas: this.state.ideas})
             },
             render: function () {
+                var self = this;
                 return  <div>
-                            <IdeasList data={this.state.ideas}/>
+                            <input type="text" onChange={(function (element){self.setState({filter: element.target.value})})}/>
+                            <IdeasList data={this.state.ideas} filter={this.state.filter}/>
                             <IdeaForm onSubmit={this.addIdea}/>
                         </div>
             }
