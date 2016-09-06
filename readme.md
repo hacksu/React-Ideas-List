@@ -43,7 +43,7 @@ is that things can get really complicated fast. There's no structure. Trying to
 make a single page web app like for example facebook.com get's complicated fast.
 Facebook it turns out ran into this too. React is their answer to this problem.
 
-Basically it breaks up your page into reusable elements while making it
+Basically it breaks up your page into reusable components while making it
 really easy to associate code and data with it. Lets make a small example.
 
 ## Project
@@ -100,11 +100,11 @@ In  `ReactDOM.render(` replace everything we have right now with
 Now when you reload you should see `Hello World` instead of `Hello
 HacKSU!``
 
-Lets talk about props for a second. Elements in react can be passed props
-by their parents, these could be strings or entire classes and functions.
-Inside our render function we can access them inside `this.props.*`
-Anytime any of them change the class will be recreated by react and
-`render` recalled. Let's add an array of ideas we'll pass to IdeaList
+Lets talk about props for a second. Components in react can be passed
+props by their parents, these could be strings or entire classes and
+functions. Inside our render function we can access them inside
+`this.props.*` Anytime any of them change the class will be recreated by react
+ and `render` recalled. Let's add an array of ideas we'll pass to IdeaList
 
 `<IdeaList data={[{title: "1"}, {title: "2"}]}/>`
 
@@ -180,3 +180,25 @@ To use this we just need to use this code:
 Now we have our form and when ever we press enter we'll see the text in the
 console.
 
+
+### Actually list ideas
+
+To use this new title in our list we need to restructure things a bit.
+
+Lets add a new Component.
+
+var Ideas = React.createClass({
+    getInitialState: function () {
+        return {ideas: []};
+    },
+    addIdea(idea) {
+        this.state.ideas.push(idea);
+        this.setState({ideas: this.state.ideas})
+    },
+    render: function () {
+        return  <div>
+                    <IdeasList data={this.state.ideas}/>
+                    <IdeaForm onSubmit={this.addIdea}/>
+                </div>
+    }
+})
