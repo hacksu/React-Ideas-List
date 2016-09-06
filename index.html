@@ -10,6 +10,7 @@
 <body>
     <div id="react"></div>
     <script type="text/babel">
+
         var IdeasList = React.createClass({
             "render": function () {
                 var items = this.props.data.map(function(item) {
@@ -43,14 +44,27 @@
                         </form>
             }
         });
+
+        var Ideas = React.createClass({
+            getInitialState: function () {
+                return {ideas: []};
+            },
+            addIdea(idea) {
+                this.state.ideas.push(idea);
+                this.setState({ideas: this.state.ideas})
+            },
+            render: function () {
+                return  <div>
+                            <IdeasList data={this.state.ideas}/>
+                            <IdeaForm onSubmit={this.addIdea}/>
+                        </div>
+            }
+        })
+
         function log(state) {
             console.log(state);
         }
-        ReactDOM.render(
-            <div>
-                <IdeasList data={[{title: "test"}, {title: "test"}, {title: "test"}]}/>
-                <IdeaForm onSubmit={log}/>
-            </div>,
+        ReactDOM.render(<Ideas/>,
             document.getElementById('react')
         );
     </script>
