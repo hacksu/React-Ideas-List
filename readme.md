@@ -124,3 +124,58 @@ seem like it would be hard but it's really not.
                                </ul>
                     }
                 })
+
+### A form
+
+Right now we can't actually change anything. Lets make a form to change
+that.
+
+
+        var IdeaForm = React.createClass({
+            getInitialState: function() {
+                return {title: ''};
+            },
+
+            "submitted": function (e) {
+                e.preventDefault();
+                this.props.onSubmit(this.state);
+                this.setState({title: ""});
+                return false;
+            },
+
+            titleChange: function(titleField) {
+                this.setState({title: titleField.target.value})
+            },
+
+            "render": function () {
+                return  <form onSubmit={this.submitted}>
+                            <input type="text" name="title" value={this.state.title} placeholder="Title" onChange={this.titleChange}/>
+                        </form>
+            }
+        });
+There's a lot going on here so lets go over a bit of it. First some of
+you may have been scratching heads when you heard that React recreates
+classes anytime things change. The solution to this is `state`. State is
+retained even if the instance is re-instantiated. Also when it's updated
+things are re-rendered. Here we have a form. Any time the form changes
+`this.titleChange` is called and from that function `this.setState` is called to
+update the state.
+
+Finally when the form is submitted `submitted` is called and the entire state is
+passed to a function which is given as a prop to the element.
+
+To use this we just need to use this code:
+
+        function log(state) {
+            console.log(state);
+        }
+        ReactDOM.render(
+            <div>
+                <IdeaList data={[{title: "test"}, {title: "test"}, {title: "test"}]}/>
+                <IdeaForm onSubmit={log}/>
+            </div>,
+            document.getElementById('react')
+        );
+
+Now we have our form and when ever we press enter we'll see the text in the console.
+
