@@ -19,9 +19,38 @@
                             {items}
                        </ul>
             }
-        })
+        });
+
+        var IdeaForm = React.createClass({
+            getInitialState: function() {
+                return {title: ''};
+            },
+
+            "submmited": function (e) {
+                e.preventDefault();
+                this.props.onSubmit(this.state);
+                this.setState({title: ""});
+                return false;
+            },
+
+            titleChange: function(titleField) {
+                this.setState({title: titleField.target.value})
+            },
+
+            "render": function () {
+                return  <form onSubmit={this.submmited}>
+                            <input type="text" name="title" value={this.state.title} placeholder="Title" onChange={this.titleChange}/>
+                        </form>
+            }
+        });
+        function log(state) {
+            console.log(state);
+        }
         ReactDOM.render(
-            <div><Ideas data={[{title: "test"}, {title: "test"}, {title: "test"}]}/></div>,
+            <div>
+                <Ideas data={[{title: "test"}, {title: "test"}, {title: "test"}]}/>
+                <IdeaForm onSubmit={log}/>
+            </div>,
             document.getElementById('react')
         );
     </script>
