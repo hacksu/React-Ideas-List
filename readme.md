@@ -177,5 +177,6 @@ To use this we just need to use this code:
             document.getElementById('react')
         );
 
-Now we have our form and when ever we press enter we'll see the text in the console.
+Now we have our form and when ever we press enter we'll see the text in the
+console.
 
