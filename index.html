@@ -10,8 +10,18 @@
 <body>
     <div id="react"></div>
     <script type="text/babel">
+        var Ideas = React.createClass({
+            "render": function () {
+                var items = this.props.data.map(function(item) {
+                    return <li><div>{item.title}</div></li>
+                });
+                return <ul>
+                            {items}
+                       </ul>
+            }
+        })
         ReactDOM.render(
-            <div>Hello HacKSU!</div>,
+            <div><Ideas data={[{title: "test"}, {title: "test"}, {title: "test"}]}/></div>,
             document.getElementById('react')
         );
     </script>
