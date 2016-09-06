@@ -74,3 +74,53 @@ text editor installed.
 
 Anyway. If you load this in your browser you should see `Hello HacKSU!`
 
+### A class! A class!
+
+To do anything more complicated we'll going to need to create a class.
+Because this isn't ES6 we'll have to do it the old fashioned way and call
+`React.createClass`. We'll pass it a dictionary (a list of values
+associated with a strings) which for now only one member `render`.
+This will get called by React anytime it thinks for some reason our view
+needs changed. So
+
+`var IdeaList = React.createClass({
+    render: function() {
+        return <div>Hello World </div>;
+    }
+`
+
+In  `ReactDOM.render(` replace everything we have right now with
+
+
+        ReactDOM.render(
+                <IdeaList/>
+                document.getElementById('react')
+        );
+
+Now when you reload you should see `Hello World` instead of `Hello
+HacKSU!``
+
+Lets talk about props for a second. Elements in react can be passed props
+by their parents, these could be strings or entire classes and functions.
+Inside our render function we can access them inside `this.props.*`
+Anytime any of them change the class will be recreated by react and
+`render` recalled. Let's add an array of ideas we'll pass to IdeaList
+
+`<IdeaList data={[{title: "1"}, {title: "2"}]}/>`
+
+The brackets (`{}`) tell JSX that the data inside should be put into the
+result.
+
+Inside `IdeaList` we need to turn this into a list of element. This might
+seem like it would be hard but it's really not.
+
+        React.createClass({
+                    "render": function () {
+                        var items = this.props.data.map(function(item) {
+                            return <li><div>{item.title}</div></li>
+                        });
+                        return <ul>
+                                    {items}
+                               </ul>
+                    }
+                })
