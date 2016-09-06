@@ -24,7 +24,7 @@ Download the starter project from https://github.com/hacksu/React-Ideas-List.
 If you have git installed you can clone the repository, if not just download and
 extract the zip file. If you don't have a computer that's capable of editing an
 HTML file for whatever reason you can also follow along at
-https://jsfiddle.net/fysh9bhn/3/
+https://jsfiddle.net/fysh9bhn/4/
 
 For most people you should just be able to double click `index.html` to load it
 into your browser of choice. If that doesn't work for some reason I'll try to
@@ -202,3 +202,83 @@ var Ideas = React.createClass({
                 </div>
     }
 })
+
+Now we can listen for new ideas being added and put them in the list. All we
+have to do to make this show up is put `<Ideas/>` as the thing being rendered.
+
+The finished project should look something like
+
+
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8" />
+            <title>React Ideas</title>
+            <script src="https://npmcdn.com/react@15.3.1/dist/react.min.js"></script>
+            <script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.min.js"></script>
+            <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+        </head>
+        <body>
+            <div id="react"></div>
+            <script type="text/babel">
+
+                var IdeasList = React.createClass({
+                    "render": function () {
+                        var items = this.props.data.map(function(item) {
+                            return <li><div>{item.title}</div></li>
+                        });
+                        return <ul>
+                                    {items}
+                               </ul>
+                    }
+                });
+
+                var IdeaForm = React.createClass({
+                    getInitialState: function() {
+                        return {title: ''};
+                    },
+
+                    "submmited": function (e) {
+                        e.preventDefault();
+                        this.props.onSubmit(this.state);
+                        this.setState({title: ""});
+                        return false;
+                    },
+
+                    titleChange: function(titleField) {
+                        this.setState({title: titleField.target.value})
+                    },
+
+                    "render": function () {
+                        return  <form onSubmit={this.submmited}>
+                                    <input type="text" name="title" value={this.state.title} placeholder="Title" onChange={this.titleChange}/>
+                                </form>
+                    }
+                });
+
+                var Ideas = React.createClass({
+                    getInitialState: function () {
+                        return {ideas: []};
+                    },
+                    addIdea(idea) {
+                        this.state.ideas.push(idea);
+                        this.setState({ideas: this.state.ideas})
+                    },
+                    render: function () {
+                        return  <div>
+                                    <IdeasList data={this.state.ideas}/>
+                                    <IdeaForm onSubmit={this.addIdea}/>
+                                </div>
+                    }
+                })
+
+                function log(state) {
+                    console.log(state);
+                }
+                ReactDOM.render(<Ideas/>,
+                    document.getElementById('react')
+                );
+            </script>
+        </body>
+        </html>
