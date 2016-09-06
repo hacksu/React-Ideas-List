@@ -12,9 +12,9 @@
     <script type="text/babel">
 
         var IdeasList = React.createClass({
-            "render": function () {
+            render: function () {
                 var items = this.props.data.map(function(item) {
-                    return <li><div>{item.title}</div></li>
+                    return <li><div><h3>{item.title}</h3><div>{item.type}</div></div></li>
                 });
                 return <ul>
                             {items}
@@ -24,10 +24,10 @@
 
         var IdeaForm = React.createClass({
             getInitialState: function() {
-                return {title: ''};
+                return {title: '', type: 'None'};
             },
 
-            "submmited": function (e) {
+            submmited: function (e) {
                 e.preventDefault();
                 this.props.onSubmit(this.state);
                 this.setState({title: ""});
@@ -38,9 +38,18 @@
                 this.setState({title: titleField.target.value})
             },
 
-            "render": function () {
+            typeChange: function(typeField) {
+                console.log(typeField.target.value)
+                this.setState({type: typeField.target.value})
+            },
+
+            render: function () {
                 return  <form onSubmit={this.submmited}>
                             <input type="text" name="title" value={this.state.title} placeholder="Title" onChange={this.titleChange}/>
+                            <select selected={this.state.type} onChange={this.typeChange}>
+                                <option value="None">None</option>
+                                <option value="Hackathon">Hackathon</option>
+                            </select>
                         </form>
             }
         });
