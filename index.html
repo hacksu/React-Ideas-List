@@ -10,7 +10,7 @@
 <body>
     <div id="react"></div>
     <script type="text/babel">
-        var Ideas = React.createClass({
+        var IdeasList = React.createClass({
             "render": function () {
                 var items = this.props.data.map(function(item) {
                     return <li><div>{item.title}</div></li>
@@ -48,7 +48,7 @@
         }
         ReactDOM.render(
             <div>
-                <Ideas data={[{title: "test"}, {title: "test"}, {title: "test"}]}/>
+                <IdeasList data={[{title: "test"}, {title: "test"}, {title: "test"}]}/>
                 <IdeaForm onSubmit={log}/>
             </div>,
             document.getElementById('react')
